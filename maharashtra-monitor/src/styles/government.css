@@ -1,0 +1,2648 @@
+/* =========================================================
+   MAHARASHTRA MPLADS MONITORING SYSTEM
+   STEP 2 — OFFICER DASHBOARD POLISH
+   ========================================================= */
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+:root {
+  --gov-blue: #12395b;
+  --gov-blue-dark: #083b5c;
+  --gov-blue-mid: #0b4f7c;
+  --gov-blue-light: #eaf1f7;
+
+  --text-main: #243b53;
+  --text-muted: #60788d;
+  --text-light: #71869a;
+
+  --border: #cbd5df;
+  --border-light: #dbe3e9;
+
+  --background: #f4f7fa;
+  --surface: #ffffff;
+  --surface-soft: #f7f9fb;
+
+  --success: #23643b;
+  --success-bg: #edf7f0;
+
+  --warning: #8a5a16;
+  --warning-bg: #fff7e8;
+
+  --danger: #8c2f2f;
+  --danger-bg: #fbeeee;
+
+  --shadow-sm: 0 1px 3px rgba(15, 35, 55, 0.08);
+  --shadow-md: 0 5px 18px rgba(15, 35, 55, 0.10);
+  --shadow-lg: 0 14px 40px rgba(15, 35, 55, 0.16);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text-main);
+  font-family:
+    "Segoe UI",
+    Arial,
+    Helvetica,
+    sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(11, 79, 124, 0.25);
+  outline-offset: 2px;
+}
+
+
+/* =========================================================
+   APPLICATION SHELL
+   ========================================================= */
+
+.app-shell {
+  min-height: 100vh;
+  background:
+    linear-gradient(
+      to bottom,
+      #eef3f7 0,
+      #f4f7fa 180px,
+      #f4f7fa 100%
+    );
+}
+
+
+/* =========================================================
+   TOP GOVERNMENT HEADER
+   ========================================================= */
+
+.top-header {
+  min-height: 88px;
+  padding: 18px 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+
+  background: #ffffff;
+  border-top: 5px solid var(--gov-blue);
+  border-bottom: 1px solid #c8d3dd;
+
+  box-shadow: var(--shadow-sm);
+}
+
+.government-label {
+  margin: 0 0 3px;
+
+  color: #5b7184;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.top-header h1 {
+  margin: 0;
+
+  color: var(--gov-blue);
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.header-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+
+  text-align: right;
+}
+
+.header-meta strong {
+  color: var(--gov-blue);
+  font-size: 14px;
+}
+
+.header-meta span {
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.navigation {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  display: flex;
+  align-items: center;
+  gap: 0;
+
+  padding: 0 42px;
+
+  background: var(--gov-blue);
+  border-bottom: 3px solid #d6a72c;
+
+  box-shadow: 0 2px 8px rgba(15, 35, 55, 0.12);
+}
+
+.nav-link {
+  position: relative;
+
+  min-height: 46px;
+  padding: 0 20px;
+
+  border: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.10);
+
+  background: transparent;
+  color: #eaf2f7;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.nav-link:last-child {
+  border-right: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.10);
+  color: #ffffff;
+}
+
+.nav-link.active-nav {
+  background: #ffffff;
+  color: var(--gov-blue);
+}
+
+.nav-link.active-nav::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+
+  height: 3px;
+  background: #d6a72c;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.main-content {
+  width: min(1440px, calc(100% - 64px));
+  margin: 0 auto;
+  padding: 32px 0 60px;
+}
+
+
+/* =========================================================
+   PAGE HEADING
+   ========================================================= */
+
+.page-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+
+  padding: 4px 0 24px;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.page-heading h2 {
+  margin: 4px 0 7px;
+
+  color: var(--gov-blue);
+  font-size: 27px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.page-heading p:not(.eyebrow) {
+  margin: 0;
+
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.eyebrow {
+  margin: 0;
+
+  color: #527493;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+}
+
+.data-date {
+  flex: 0 0 auto;
+
+  padding: 7px 11px;
+
+  border: 1px solid #c9d6e0;
+  background: #ffffff;
+
+  color: #526b7e;
+  font-size: 11px;
+  font-weight: 600;
+
+  box-shadow: var(--shadow-sm);
+}
+
+
+/* =========================================================
+   MESSAGE
+   ========================================================= */
+
+.message-box {
+  margin: 18px 0 0;
+  padding: 12px 15px;
+
+  border-left: 4px solid var(--gov-blue-mid);
+  border-top: 1px solid #c8d8e4;
+  border-right: 1px solid #c8d8e4;
+  border-bottom: 1px solid #c8d8e4;
+
+  background: #edf5fa;
+  color: #244d6c;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   RISK DISCLAIMER
+   ========================================================= */
+
+.notice-box {
+  margin-top: 16px;
+  padding: 12px 15px;
+
+  border: 1px solid #e4d5b9;
+  border-left: 4px solid #b46a42;
+
+  background: #fff9ef;
+  color: #654b2d;
+
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.notice-box strong {
+  color: #6d451c;
+}
+
+
+/* =========================================================
+   PORTFOLIO LIFECYCLE
+   ========================================================= */
+
+.lifecycle-section {
+  margin-top: 22px;
+
+  padding: 24px;
+
+  background: #ffffff;
+  border: 1px solid var(--border);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.lifecycle-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.lifecycle-heading h2 {
+  margin: 4px 0 6px;
+
+  color: var(--gov-blue);
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.lifecycle-heading p:not(.eyebrow) {
+  margin: 0;
+
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   COMPLETION DONUT
+   ========================================================= */
+
+.completion-donut {
+  --completion-angle: 0deg;
+
+  position: relative;
+
+  width: 92px;
+  height: 92px;
+
+  flex: 0 0 92px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background:
+    conic-gradient(
+      var(--gov-blue-mid) var(--completion-angle),
+      #e5ebf0 var(--completion-angle)
+    );
+}
+
+.completion-donut::before {
+  content: "";
+
+  position: absolute;
+  inset: 8px;
+
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.completion-donut > div {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.completion-donut strong {
+  color: var(--gov-blue);
+  font-size: 19px;
+  line-height: 1;
+}
+
+.completion-donut span {
+  margin-top: 4px;
+
+  color: var(--text-muted);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   LIFECYCLE FLOW
+   ========================================================= */
+
+.lifecycle-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 35px minmax(0, 1fr) 35px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+
+  margin-top: 25px;
+}
+
+.lifecycle-stage {
+  min-width: 0;
+}
+
+.stage-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  margin-bottom: 8px;
+
+  color: #4e687d;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.stage-label strong {
+  color: var(--gov-blue);
+  font-size: 17px;
+}
+
+.stage-track {
+  width: 100%;
+  height: 9px;
+
+  overflow: hidden;
+
+  background: #e7edf2;
+  border: 1px solid #d3dee6;
+}
+
+.stage-fill {
+  height: 100%;
+  min-width: 2px;
+
+  transition: width 0.5s ease;
+}
+
+.recommended-fill {
+  background: #527493;
+}
+
+.sanctioned-fill {
+  background: #3d7196;
+}
+
+.completed-fill {
+  background: #477455;
+}
+
+.flow-arrow {
+  color: #8094a5;
+  font-size: 21px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.lifecycle-note {
+  margin: 18px 0 0;
+  padding-top: 14px;
+
+  border-top: 1px solid #e0e7ec;
+
+  color: #64798a;
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+   ========================================================= */
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+
+  margin-top: 20px;
+}
+
+.summary-card {
+  position: relative;
+
+  min-height: 132px;
+
+  padding: 18px 19px;
+
+  background: #ffffff;
+  border: 1px solid var(--border);
+
+  box-shadow: var(--shadow-sm);
+
+  overflow: hidden;
+}
+
+.summary-card::before {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 4px;
+
+  background: #527493;
+}
+
+.summary-card.completed-card::before {
+  background: #477455;
+}
+
+.summary-card.pending-card::before {
+  background: #b27a2d;
+}
+
+.summary-card.critical-card::before {
+  background: #9a4141;
+}
+
+.summary-card > span {
+  display: block;
+
+  color: #60788d;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.summary-card > strong {
+  display: block;
+
+  margin-top: 7px;
+
+  color: var(--gov-blue);
+  font-size: 30px;
+  line-height: 1.05;
+}
+
+.summary-card small {
+  display: block;
+
+  margin-top: 9px;
+
+  color: #708496;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   ADD PROJECT SECTION
+   ========================================================= */
+
+#add-project {
+  margin-top: 24px;
+}
+
+
+/* =========================================================
+   PROJECT TABLE SECTION
+   ========================================================= */
+
+.table-section {
+  margin-top: 24px;
+
+  background: #ffffff;
+  border: 1px solid var(--border);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px 22px 17px;
+
+  border-bottom: 1px solid var(--border-light);
+}
+
+.section-title h2 {
+  margin: 0;
+
+  color: var(--gov-blue);
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.section-title p {
+  margin: 4px 0 0;
+
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   FILTERS
+   ========================================================= */
+
+.filters {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, minmax(140px, 1fr));
+  gap: 9px;
+
+  padding: 16px 20px;
+
+  background: #f7f9fb;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.filters input,
+.filters select {
+  width: 100%;
+  min-width: 0;
+  min-height: 38px;
+
+  padding: 8px 10px;
+
+  border: 1px solid #b9c9d6;
+  border-radius: 2px;
+
+  background: #ffffff;
+  color: #243b53;
+
+  font-size: 12px;
+}
+
+.filters input::placeholder {
+  color: #8193a2;
+}
+
+.filters input:hover,
+.filters select:hover {
+  border-color: #8da5b8;
+}
+
+.filters input:focus,
+.filters select:focus {
+  outline: none;
+
+  border-color: var(--gov-blue-mid);
+
+  box-shadow:
+    0 0 0 2px rgba(11, 79, 124, 0.10);
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+   ========================================================= */
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.table-wrap table {
+  width: 100%;
+  min-width: 1080px;
+
+  border-collapse: collapse;
+
+  table-layout: auto;
+
+  font-size: 12px;
+}
+
+.table-wrap thead {
+  background: #eaf1f7;
+}
+
+.table-wrap th {
+  padding: 12px 11px;
+
+  border-bottom: 2px solid #9fb6ca;
+
+  color: #173f63;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+
+  white-space: nowrap;
+}
+
+.table-wrap td {
+  padding: 12px 11px;
+
+  border-bottom: 1px solid #dbe3e9;
+
+  color: #34495e;
+
+  vertical-align: middle;
+
+  line-height: 1.4;
+}
+
+.table-wrap tbody tr {
+  background: #ffffff;
+
+  transition:
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.table-wrap tbody tr:hover {
+  background: #f5f8fa;
+}
+
+.table-wrap tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+/* =========================================================
+   WORK ID
+   ========================================================= */
+
+.work-id {
+  color: var(--gov-blue) !important;
+
+  font-size: 11px !important;
+  font-weight: 700 !important;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   RECORD TYPE BADGES
+   ========================================================= */
+
+.record-badge {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 24px;
+
+  padding: 4px 7px;
+
+  border-radius: 2px;
+
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1.2;
+
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.historical-record {
+  background: #edf2f6;
+  color: #36566f;
+
+  border: 1px solid #c9d5df;
+}
+
+.new-record {
+  background: #e7f1f8;
+  color: #0b4f7c;
+
+  border: 1px solid #9fc2d9;
+}
+
+
+/* =========================================================
+   RISK TAGS
+   ========================================================= */
+
+.risk-tag {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 25px;
+
+  padding: 4px 8px;
+
+  border-radius: 2px;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.risk-tag.critical {
+  background: var(--danger-bg);
+  color: var(--danger);
+  border: 1px solid #e0bcbc;
+}
+
+.risk-tag.high {
+  background: #fff2e8;
+  color: #934e24;
+  border: 1px solid #e1c2ad;
+}
+
+.risk-tag.medium {
+  background: var(--warning-bg);
+  color: var(--warning);
+  border: 1px solid #e4d1a8;
+}
+
+.risk-tag.low {
+  background: var(--success-bg);
+  color: var(--success);
+  border: 1px solid #c3ddca;
+}
+
+
+/* =========================================================
+   REVIEW STATUS
+   ========================================================= */
+
+.table-wrap td:nth-child(7) {
+  color: #536b7e;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   VIEW DETAILS BUTTON
+   ========================================================= */
+
+.view-button {
+  min-height: 32px;
+
+  padding: 6px 11px;
+
+  border: 1px solid #083b5c;
+  border-radius: 2px;
+
+  background: #0b4f7c;
+  color: #ffffff;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  transition:
+    background 0.15s ease,
+    transform 0.1s ease,
+    box-shadow 0.15s ease;
+}
+
+.view-button:hover {
+  background: #083b5c;
+
+  box-shadow:
+    0 2px 5px rgba(8, 59, 92, 0.18);
+}
+
+.view-button:active {
+  transform: translateY(1px);
+}
+
+
+/* =========================================================
+   LOADING / EMPTY TABLE
+   ========================================================= */
+
+.loading-text {
+  margin: 0;
+
+  padding: 38px 20px;
+
+  color: #60788d;
+
+  text-align: center;
+  font-size: 13px;
+}
+
+.table-wrap td[colspan] {
+  padding: 42px 20px;
+
+  color: #6d8090;
+
+  text-align: center;
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   PROJECT DETAIL MODAL
+   ========================================================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background: rgba(15, 35, 55, 0.52);
+
+  overflow-y: auto;
+
+  backdrop-filter: blur(2px);
+}
+
+.project-modal {
+  position: relative;
+
+  width: min(900px, 100%);
+
+  max-height: 92vh;
+
+  overflow-y: auto;
+
+  background: #ffffff;
+
+  border: 1px solid #aebfcd;
+
+  box-shadow: var(--shadow-lg);
+
+  animation: modal-enter 0.18s ease-out;
+}
+
+@keyframes modal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.99);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+/* =========================================================
+   MODAL CLOSE BUTTON
+   ========================================================= */
+
+.close-button {
+  position: absolute;
+  top: 17px;
+  right: 20px;
+  z-index: 3;
+
+  width: 35px;
+  height: 35px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid #b8c8d6;
+  border-radius: 2px;
+
+  background: #ffffff;
+  color: #173f63;
+
+  font-size: 22px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.close-button:hover {
+  background: #f0f4f7;
+  border-color: #8fa6b8;
+}
+
+
+/* =========================================================
+   MODAL HEADER AREA
+   ========================================================= */
+
+.project-modal > .eyebrow {
+  margin: 0;
+
+  padding: 22px 70px 0 24px;
+}
+
+.project-modal > h2 {
+  margin: 4px 0 3px;
+  padding: 0 70px 0 24px;
+
+  color: var(--gov-blue);
+
+  font-size: 23px;
+  line-height: 1.3;
+}
+
+.modal-work-id {
+  margin: 0;
+
+  padding: 0 24px 20px;
+
+  color: #5d7183;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   DETAIL GRID
+   ========================================================= */
+
+.detail-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 10px;
+
+  padding: 20px 24px;
+
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+
+  background: #f7f9fb;
+}
+
+.detail-grid > div {
+  min-width: 0;
+
+  padding: 12px;
+
+  background: #ffffff;
+
+  border: 1px solid #d7e1e8;
+}
+
+.detail-grid span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #60788d;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.detail-grid strong {
+  display: block;
+
+  color: #243b53;
+
+  font-size: 13px;
+  line-height: 1.45;
+
+  word-break: break-word;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
+.description-box {
+  margin: 0;
+  padding: 20px 24px;
+
+  border-bottom: 1px solid var(--border-light);
+}
+
+.description-box strong {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #173f63;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.description-box p {
+  margin: 0;
+
+  color: #34495e;
+
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   RISK / ATTENTION REASON
+   ========================================================= */
+
+.reason-box {
+  margin: 20px 24px;
+
+  padding: 17px;
+
+  border: 1px solid #e1d3bd;
+  border-left: 4px solid #b46a42;
+
+  background: #fffaf2;
+}
+
+.reason-box .risk-tag {
+  margin-bottom: 11px;
+}
+
+.reason-box h3 {
+  margin: 0 0 7px;
+
+  color: #654b2d;
+
+  font-size: 15px;
+}
+
+.reason-box p {
+  margin: 0;
+
+  color: #5d4a35;
+
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   OFFICER REVIEW
+   ========================================================= */
+
+.review-box {
+  margin-top: 4px;
+
+  padding: 20px 24px;
+
+  border-top: 1px solid var(--border-light);
+
+  background: #fafbfc;
+}
+
+.review-box h3 {
+  margin: 0 0 14px;
+
+  color: var(--gov-blue);
+
+  font-size: 16px;
+}
+
+.review-box select {
+  width: 100%;
+
+  min-height: 40px;
+
+  margin-bottom: 11px;
+
+  padding: 8px 10px;
+
+  border: 1px solid #b8c8d6;
+  border-radius: 2px;
+
+  background: #ffffff;
+  color: #243b53;
+
+  font-size: 12px;
+}
+
+.review-box select:focus {
+  outline: none;
+
+  border-color: #3d7196;
+
+  box-shadow:
+    0 0 0 2px rgba(61, 113, 150, 0.12);
+}
+
+.review-box textarea {
+  width: 100%;
+  min-height: 86px;
+
+  box-sizing: border-box;
+
+  padding: 10px;
+
+  border: 1px solid #b8c8d6;
+  border-radius: 2px;
+
+  background: #ffffff;
+  color: #243b53;
+
+  font-family: inherit;
+  font-size: 12px;
+
+  line-height: 1.5;
+
+  resize: vertical;
+}
+
+.review-box textarea::placeholder {
+  color: #8798a7;
+}
+
+.review-box textarea:focus {
+  outline: none;
+
+  border-color: #3d7196;
+
+  box-shadow:
+    0 0 0 2px rgba(61, 113, 150, 0.12);
+}
+
+
+/* =========================================================
+   SAVE REVIEW BUTTON
+   ========================================================= */
+
+.save-button {
+  min-height: 39px;
+
+  margin-top: 12px;
+
+  padding: 8px 15px;
+
+  border: 1px solid #083b5c;
+  border-radius: 2px;
+
+  background: #0b4f7c;
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.save-button:hover:not(:disabled) {
+  background: #083b5c;
+
+  box-shadow:
+    0 2px 5px rgba(8, 59, 92, 0.18);
+}
+
+.save-button:disabled {
+  opacity: 0.60;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   ADD PROJECT FORM — BASIC GOVERNMENT CONSISTENCY
+   ========================================================= */
+
+#add-project section,
+#add-project form {
+  width: 100%;
+}
+
+#add-project h2,
+#add-project h3 {
+  color: var(--gov-blue);
+}
+
+#add-project input,
+#add-project select,
+#add-project textarea {
+  border-color: #b9c9d6;
+  border-radius: 2px;
+}
+
+#add-project button {
+  border-radius: 2px;
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+  .main-content {
+    width: min(100% - 40px, 1440px);
+  }
+
+  .top-header {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
+  .navigation {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
+  .filters {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .filters input {
+    grid-column: 1 / -1;
+  }
+
+  .summary-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .top-header {
+    min-height: auto;
+
+    padding: 16px 18px;
+
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .top-header h1 {
+    font-size: 20px;
+  }
+
+  .header-meta {
+    align-items: flex-start;
+
+    text-align: left;
+  }
+
+  .navigation {
+    padding: 0;
+
+    overflow-x: auto;
+  }
+
+  .nav-link {
+    flex: 0 0 auto;
+
+    padding: 0 14px;
+
+    font-size: 11px;
+  }
+
+  .main-content {
+    width: calc(100% - 24px);
+
+    padding-top: 22px;
+  }
+
+  .page-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .page-heading h2 {
+    font-size: 22px;
+  }
+
+  .data-date {
+    align-self: stretch;
+  }
+
+  .lifecycle-section {
+    padding: 17px;
+  }
+
+  .lifecycle-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .completion-donut {
+    width: 82px;
+    height: 82px;
+    flex-basis: 82px;
+  }
+
+  .lifecycle-flow {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .flow-arrow {
+    transform: rotate(90deg);
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filters {
+    grid-template-columns: 1fr;
+
+    padding: 13px;
+  }
+
+  .filters input {
+    grid-column: auto;
+  }
+
+  .section-title {
+    padding: 17px 15px;
+  }
+
+  .section-title h2 {
+    font-size: 17px;
+  }
+
+  .modal-overlay {
+    align-items: flex-start;
+
+    padding: 8px;
+  }
+
+  .project-modal {
+    width: 100%;
+    max-height: 96vh;
+  }
+
+  .project-modal > .eyebrow {
+    padding-left: 17px;
+    padding-right: 55px;
+  }
+
+  .project-modal > h2 {
+    padding-left: 17px;
+    padding-right: 55px;
+
+    font-size: 20px;
+  }
+
+  .modal-work-id {
+    padding-left: 17px;
+    padding-right: 17px;
+    padding-bottom: 16px;
+  }
+
+  .close-button {
+    top: 12px;
+    right: 12px;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+
+    padding: 15px 17px;
+  }
+
+  .description-box {
+    padding: 17px;
+  }
+
+  .reason-box {
+    margin: 17px;
+  }
+
+  .review-box {
+    padding: 17px;
+  }
+
+  .save-button {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL SCREENS
+   ========================================================= */
+
+@media (max-width: 420px) {
+  .main-content {
+    width: calc(100% - 16px);
+  }
+
+  .summary-card {
+    min-height: 120px;
+  }
+
+  .summary-card > strong {
+    font-size: 26px;
+  }
+
+  .record-badge {
+    white-space: normal;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+/* =========================================================
+   STEP 3 — ADD PROJECT / AI-ASSISTED INTAKE
+   ========================================================= */
+
+.add-project-section {
+  width: 100%;
+  margin: 32px 0 40px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ...paste the rest of your CSS here... */
+/* =========================================================
+   STEP 3 — ADD PROJECT / AI-ASSISTED INTAKE
+   Government of Maharashtra style
+   ========================================================= */
+
+.add-project-section {
+  width: 100%;
+  margin: 32px 0 40px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ---------------------------------------------------------
+   SECTION HEADER
+   --------------------------------------------------------- */
+
+.add-project-section .section-title {
+  width: 100%;
+  margin: 0 0 22px;
+  padding: 0 0 20px;
+  border-bottom: 1px solid #d5dee7;
+}
+
+.add-project-section .section-title > div {
+  width: 100%;
+}
+
+.add-project-section .eyebrow {
+  margin: 0 0 6px;
+  color: #527493;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.add-project-section .section-title h2 {
+  margin: 0 0 8px;
+  color: #12395b;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.add-project-section .section-title p:not(.eyebrow) {
+  max-width: 850px;
+  margin: 0;
+  color: #52708b;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ---------------------------------------------------------
+   MESSAGE
+   --------------------------------------------------------- */
+
+.add-project-section .message-box {
+  width: 100%;
+  margin: 0 0 18px;
+  padding: 12px 15px;
+  box-sizing: border-box;
+
+  background: #f4f8fb;
+  border: 1px solid #c8d9e6;
+  border-left: 4px solid #0b4f7c;
+
+  color: #244d6c;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ---------------------------------------------------------
+   FORM CONTAINER
+   --------------------------------------------------------- */
+
+.project-form {
+  width: 100%;
+  padding: 26px;
+  box-sizing: border-box;
+
+  background: #ffffff;
+  border: 1px solid #cbd7e1;
+  box-shadow: 0 2px 8px rgba(20, 55, 85, 0.06);
+}
+
+/* ---------------------------------------------------------
+   FORM GRID
+   --------------------------------------------------------- */
+
+.project-form .form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 22px;
+  row-gap: 18px;
+  width: 100%;
+}
+
+/* ---------------------------------------------------------
+   FORM LABELS
+   --------------------------------------------------------- */
+
+.project-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  min-width: 0;
+
+  color: #173f63;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+/* ---------------------------------------------------------
+   ALL FORM CONTROLS
+   Important: overrides dark/global browser styling
+   --------------------------------------------------------- */
+
+.project-form input,
+.project-form select,
+.project-form textarea {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  border: 1px solid #aebfce;
+  border-radius: 2px;
+
+  background: #ffffff;
+  color: #243b53;
+
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+/* Inputs */
+
+.project-form input,
+.project-form select {
+  height: 42px;
+  padding: 9px 11px;
+}
+
+/* Textarea */
+
+.project-form textarea {
+  min-height: 125px;
+  padding: 11px 12px;
+  resize: vertical;
+}
+
+/* Placeholder */
+
+.project-form input::placeholder,
+.project-form textarea::placeholder {
+  color: #8a9aaa;
+  opacity: 1;
+}
+
+/* Select */
+
+.project-form select {
+  cursor: pointer;
+  appearance: auto;
+}
+
+/* Focus */
+
+.project-form input:focus,
+.project-form select:focus,
+.project-form textarea:focus {
+  outline: none;
+
+  border-color: #0b4f7c;
+
+  box-shadow:
+    0 0 0 2px rgba(11, 79, 124, 0.12);
+
+  background: #ffffff;
+}
+
+/* Disabled */
+
+.project-form input:disabled,
+.project-form select:disabled,
+.project-form textarea:disabled {
+  background: #f1f4f6;
+  color: #718096;
+  cursor: not-allowed;
+}
+
+/* ---------------------------------------------------------
+   DESCRIPTION
+   Full width
+   --------------------------------------------------------- */
+
+.project-form .description-input {
+  width: 100%;
+  margin-top: 22px;
+}
+
+/* ---------------------------------------------------------
+   AI ANALYSIS BUTTON
+   --------------------------------------------------------- */
+
+.project-form .analyse-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 42px;
+  margin-top: 16px;
+  padding: 10px 18px;
+
+  border: 1px solid #527493;
+  border-radius: 2px;
+
+  background: #eef4f8;
+  color: #173f63;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.project-form .analyse-button:hover:not(:disabled) {
+  background: #dfeaf2;
+  border-color: #0b4f7c;
+  color: #0b4f7c;
+}
+
+.project-form .analyse-button:focus-visible {
+  outline: 2px solid #0b4f7c;
+  outline-offset: 2px;
+}
+
+.project-form .analyse-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ---------------------------------------------------------
+   AI RESULT
+   --------------------------------------------------------- */
+
+.project-form .ai-result-box {
+  width: 100%;
+  margin-top: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+
+  background: #f5f9fc;
+
+  border: 1px solid #c8dbe8;
+  border-left: 4px solid #3d7196;
+}
+
+.project-form .ai-result-box .eyebrow {
+  margin: 0 0 6px;
+
+  color: #527493;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.project-form .ai-result-box h3 {
+  margin: 0 0 10px;
+
+  color: #12395b;
+  font-size: 19px;
+  line-height: 1.3;
+}
+
+.project-form .ai-result-box p {
+  margin: 7px 0;
+
+  color: #40566b;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.project-form .ai-result-box strong {
+  color: #173f63;
+}
+
+/* Category confirmation */
+
+.project-form .ai-result-box label {
+  margin-top: 16px;
+}
+
+/* ---------------------------------------------------------
+   SAVE BUTTON
+   --------------------------------------------------------- */
+
+.project-form .save-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 44px;
+  margin-top: 22px;
+  padding: 11px 20px;
+
+  border: 1px solid #083b5c;
+  border-radius: 2px;
+
+  background: #0b4f7c;
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.project-form .save-button:hover:not(:disabled) {
+  background: #083b5c;
+  border-color: #062e47;
+  box-shadow: 0 2px 6px rgba(8, 59, 92, 0.18);
+}
+
+.project-form .save-button:focus-visible {
+  outline: 2px solid #0b4f7c;
+  outline-offset: 2px;
+}
+
+.project-form .save-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ---------------------------------------------------------
+   SUCCESS RESULT
+   --------------------------------------------------------- */
+
+.add-project-section .submission-result {
+  width: 100%;
+  margin-top: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+
+  background: #f4f8f5;
+  border: 1px solid #b9d4c2;
+  border-left: 4px solid #39734a;
+}
+
+.add-project-section .submission-result h3 {
+  margin: 0 0 12px;
+
+  color: #285a39;
+  font-size: 17px;
+}
+
+.add-project-section .submission-result p {
+  margin: 6px 0;
+
+  color: #405548;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.add-project-section .submission-result strong {
+  color: #285a39;
+}
+
+/* ---------------------------------------------------------
+   REQUIRED FIELD VISUAL
+   --------------------------------------------------------- */
+
+.project-form label {
+  position: relative;
+}
+
+/* ---------------------------------------------------------
+   TABLET
+   --------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .project-form {
+    padding: 20px;
+  }
+
+  .project-form .form-grid {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 16px;
+    row-gap: 16px;
+  }
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+
+@media (max-width: 650px) {
+  .add-project-section {
+    margin-top: 24px;
+  }
+
+  .add-project-section .section-title h2 {
+    font-size: 22px;
+  }
+
+  .add-project-section .section-title p:not(.eyebrow) {
+    font-size: 13px;
+  }
+
+  .project-form {
+    padding: 16px;
+  }
+
+  .project-form .form-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .project-form .description-input {
+    margin-top: 18px;
+  }
+
+  .project-form .analyse-button,
+  .project-form .save-button {
+    width: 100%;
+  }
+
+  .project-form .ai-result-box {
+    padding: 16px;
+  }
+}
+/* =========================================================
+   STEP 4 — CITIZEN PORTAL
+   Government of Maharashtra style
+   ========================================================= */
+
+.citizen-portal {
+  width: 100%;
+  min-height: 100vh;
+  background: #f4f7fa;
+  color: #243b53;
+}
+
+/* ---------------------------------------------------------
+   HEADER
+   --------------------------------------------------------- */
+
+.citizen-portal .top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+
+  width: 100%;
+  padding: 20px 28px;
+  box-sizing: border-box;
+
+  background: #ffffff;
+  border-bottom: 1px solid #d5dee7;
+}
+
+.citizen-portal .government-label {
+  margin: 0 0 5px;
+
+  color: #527493;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.citizen-portal .top-header h1 {
+  margin: 0;
+
+  color: #12395b;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.citizen-portal .header-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+
+  color: #52708b;
+  font-size: 12px;
+  text-align: right;
+}
+
+.citizen-portal .header-meta strong {
+  color: #173f63;
+  font-size: 13px;
+}
+
+/* ---------------------------------------------------------
+   NAVIGATION
+   --------------------------------------------------------- */
+
+.citizen-portal .navigation {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  width: 100%;
+  min-height: 48px;
+  padding: 0 28px;
+  box-sizing: border-box;
+
+  background: #ffffff;
+  border-bottom: 1px solid #d5dee7;
+}
+
+.citizen-portal .back-navigation {
+  border: none;
+  background: transparent;
+
+  color: #527493;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.citizen-portal .back-navigation:hover {
+  color: #0b4f7c;
+}
+
+.citizen-portal .active-nav {
+  padding: 15px 0 12px;
+
+  border-bottom: 3px solid #0b4f7c;
+
+  color: #12395b;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* ---------------------------------------------------------
+   MAIN CONTENT
+   --------------------------------------------------------- */
+
+.citizen-portal .main-content {
+  width: 100%;
+  max-width: 1400px;
+
+  margin: 0 auto;
+  padding: 30px 28px 45px;
+
+  box-sizing: border-box;
+}
+
+/* ---------------------------------------------------------
+   PAGE HEADING
+   --------------------------------------------------------- */
+
+.citizen-portal .page-heading {
+  width: 100%;
+  margin-bottom: 22px;
+  padding-bottom: 20px;
+
+  border-bottom: 1px solid #d5dee7;
+}
+
+.citizen-portal .page-heading .eyebrow {
+  margin: 0 0 6px;
+
+  color: #527493;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.citizen-portal .page-heading h2 {
+  margin: 0 0 8px;
+
+  color: #12395b;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.citizen-portal .page-heading p:not(.eyebrow) {
+  margin: 0;
+
+  color: #52708b;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ---------------------------------------------------------
+   PUBLIC NOTICE
+   --------------------------------------------------------- */
+
+.citizen-portal .citizen-notice {
+  width: 100%;
+  margin-bottom: 22px;
+  padding: 13px 16px;
+
+  box-sizing: border-box;
+
+  background: #f4f8fb;
+  border: 1px solid #c8d9e6;
+  border-left: 4px solid #0b4f7c;
+
+  color: #40566b;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.citizen-portal .citizen-notice strong {
+  color: #173f63;
+}
+
+/* ---------------------------------------------------------
+   TABLE SECTION
+   --------------------------------------------------------- */
+
+.citizen-portal .citizen-project-section {
+  width: 100%;
+
+  background: #ffffff;
+  border: 1px solid #cbd7e1;
+
+  box-shadow: 0 2px 8px rgba(20, 55, 85, 0.05);
+}
+
+/* ---------------------------------------------------------
+   TABLE SECTION HEADER
+   --------------------------------------------------------- */
+
+.citizen-portal .citizen-project-section > .section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 20px 22px;
+
+  border-bottom: 1px solid #d5dee7;
+}
+
+.citizen-portal .citizen-project-section .section-title h2 {
+  margin: 0 0 5px;
+
+  color: #12395b;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.citizen-portal .citizen-project-section .section-title p {
+  margin: 0;
+
+  color: #718096;
+  font-size: 12px;
+}
+
+/* ---------------------------------------------------------
+   FILTER AREA
+   --------------------------------------------------------- */
+
+.citizen-portal .citizen-filters {
+  display: grid;
+
+  grid-template-columns:
+    minmax(240px, 2fr)
+    repeat(3, minmax(150px, 1fr))
+    auto;
+
+  gap: 10px;
+
+  padding: 16px 22px;
+
+  background: #f8fafc;
+  border-bottom: 1px solid #d5dee7;
+}
+
+.citizen-portal .citizen-filters input,
+.citizen-portal .citizen-filters select {
+  width: 100%;
+  min-width: 0;
+  height: 40px;
+
+  padding: 8px 10px;
+  box-sizing: border-box;
+
+  border: 1px solid #aebfce;
+  border-radius: 2px;
+
+  background: #ffffff;
+  color: #243b53;
+
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.citizen-portal .citizen-filters input:focus,
+.citizen-portal .citizen-filters select:focus {
+  outline: none;
+
+  border-color: #0b4f7c;
+
+  box-shadow:
+    0 0 0 2px rgba(11, 79, 124, 0.12);
+}
+
+/* ---------------------------------------------------------
+   CLEAR / REFRESH BUTTON
+   --------------------------------------------------------- */
+
+.citizen-portal .clear-filter-button {
+  min-height: 40px;
+
+  padding: 8px 14px;
+
+  border: 1px solid #aebfce;
+  border-radius: 2px;
+
+  background: #ffffff;
+  color: #173f63;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.citizen-portal .clear-filter-button:hover:not(:disabled) {
+  background: #eef4f8;
+  border-color: #527493;
+}
+
+.citizen-portal .clear-filter-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ---------------------------------------------------------
+   MESSAGE
+   --------------------------------------------------------- */
+
+.citizen-portal .message-box {
+  margin: 16px 22px;
+
+  padding: 12px 15px;
+
+  background: #f4f8fb;
+  border: 1px solid #c8d9e6;
+  border-left: 4px solid #0b4f7c;
+
+  color: #40566b;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ---------------------------------------------------------
+   LOADING
+   --------------------------------------------------------- */
+
+.citizen-portal .loading-text {
+  margin: 0;
+  padding: 35px 22px;
+
+  color: #52708b;
+  font-size: 13px;
+  text-align: center;
+}
+
+/* ---------------------------------------------------------
+   TABLE
+   --------------------------------------------------------- */
+
+.citizen-portal .table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.citizen-portal table {
+  width: 100%;
+  min-width: 950px;
+
+  border-collapse: collapse;
+
+  background: #ffffff;
+}
+
+.citizen-portal thead {
+  background: #eef3f7;
+}
+
+.citizen-portal th {
+  padding: 12px 14px;
+
+  border-bottom: 1px solid #cbd7e1;
+
+  color: #173f63;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: left;
+  text-transform: uppercase;
+
+  white-space: nowrap;
+}
+
+.citizen-portal td {
+  padding: 14px;
+
+  border-bottom: 1px solid #e2e8ee;
+
+  color: #40566b;
+
+  font-size: 13px;
+  line-height: 1.45;
+
+  vertical-align: top;
+}
+
+.citizen-portal tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* ---------------------------------------------------------
+   TABLE COLUMNS
+   --------------------------------------------------------- */
+
+.citizen-portal .work-id {
+  width: 135px;
+  color: #173f63;
+  font-weight: 700;
+}
+
+.citizen-portal .work-id span {
+  display: inline-block;
+
+  padding: 4px 7px;
+
+  background: #f1f5f8;
+  border: 1px solid #d5dee7;
+
+  color: #173f63;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.citizen-portal .project-description-cell {
+  min-width: 250px;
+
+  color: #243b53;
+  font-weight: 600;
+}
+
+.citizen-portal .location-cell {
+  min-width: 140px;
+}
+
+.citizen-portal .category-cell {
+  min-width: 180px;
+}
+
+.citizen-portal .stage-cell {
+  min-width: 160px;
+}
+
+/* ---------------------------------------------------------
+   PUBLIC STATUS
+   --------------------------------------------------------- */
+
+.citizen-portal .public-status {
+  display: inline-block;
+
+  padding: 5px 9px;
+
+  border: 1px solid #b9cad8;
+  border-radius: 2px;
+
+  background: #f4f8fb;
+
+  color: #285a78;
+
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------
+   EMPTY TABLE
+   --------------------------------------------------------- */
+
+.citizen-portal .empty-table-message {
+  padding: 40px 20px;
+
+  color: #718096;
+
+  font-size: 13px;
+  text-align: center;
+}
+
+/* ---------------------------------------------------------
+   FOOTER NOTE
+   --------------------------------------------------------- */
+
+.citizen-portal .citizen-footer-note {
+  margin-top: 24px;
+  padding: 20px 22px;
+
+  background: #ffffff;
+  border: 1px solid #d5dee7;
+}
+
+.citizen-portal .citizen-footer-note h3 {
+  margin: 0 0 8px;
+
+  color: #12395b;
+  font-size: 16px;
+}
+
+.citizen-portal .citizen-footer-note p {
+  max-width: 900px;
+
+  margin: 0;
+
+  color: #52708b;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* ---------------------------------------------------------
+   TABLET
+   --------------------------------------------------------- */
+
+@media (max-width: 1000px) {
+  .citizen-portal .citizen-filters {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .citizen-portal .citizen-filters input {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+
+@media (max-width: 650px) {
+  .citizen-portal .top-header {
+    flex-direction: column;
+    align-items: flex-start;
+
+    padding: 18px 16px;
+  }
+
+  .citizen-portal .top-header h1 {
+    font-size: 20px;
+  }
+
+  .citizen-portal .header-meta {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .citizen-portal .navigation {
+    padding: 0 16px;
+  }
+
+  .citizen-portal .main-content {
+    padding: 22px 16px 35px;
+  }
+
+  .citizen-portal .page-heading h2 {
+    font-size: 21px;
+  }
+
+  .citizen-portal .citizen-project-section > .section-title {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .citizen-portal .citizen-filters {
+    grid-template-columns: 1fr;
+
+    padding: 14px 16px;
+  }
+
+  .citizen-portal .citizen-filters input {
+    grid-column: auto;
+  }
+
+  .citizen-portal .citizen-filters .clear-filter-button {
+    width: 100%;
+  }
+
+  .citizen-portal .citizen-project-section .section-title {
+    padding: 18px 16px;
+  }
+}
+/* =========================================================
+   STEP 6 — FINAL REVIEW POLISH
+   ========================================================= */
+
+.review-guidance {
+  margin: 0 0 14px;
+  color: #52708b;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.loading-modal {
+  max-width: 480px;
+  text-align: center;
+}
+
+.loading-modal h2 {
+  margin: 0 0 8px;
+  color: #12395b;
+  font-size: 20px;
+}
+
+.loading-modal p:not(.eyebrow) {
+  margin: 0;
+  color: #52708b;
+  font-size: 14px;
+  line-height: 1.6;
+}
