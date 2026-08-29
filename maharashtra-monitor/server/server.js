@@ -313,6 +313,12 @@ app.post("/api/project/review", async (req, res) => {
       officerNote,
     } = req.body;
 
+    console.log("Review request received:", {
+      workId,
+      verificationStatus,
+      officerNote,
+    });
+
     if (!workId || !verificationStatus) {
       return res.status(400).json({
         error:
@@ -347,19 +353,29 @@ app.post("/api/project/review", async (req, res) => {
       ]
     );
 
+    console.log(
+      "Review saved successfully:",
+      result.rows[0]
+    );
+
     res.json({
-      message: "Project review saved successfully.",
+      message:
+        "Project review saved successfully.",
       review: result.rows[0],
     });
   } catch (error) {
-    console.error("Project review error:", error);
+    console.error(
+      "PROJECT REVIEW DATABASE ERROR:",
+      error
+    );
 
     res.status(500).json({
-      error: "Could not save project review.",
+      error:
+        "Could not save project review.",
+      details: error.message,
     });
   }
 });
-
 // =====================================================
 // 5. AI TEXT CATEGORISATION
 // =====================================================
