@@ -356,7 +356,22 @@ app.post("/api/project/review", async (req, res) => {
     officerNote || null,
   ]
 );
+    res.json({
+      message: "Project review saved successfully.",
+      review: result.rows[0],
+    });
+  } catch (error) {
+    console.error(
+      "Project review error:",
+      error
+    );
 
+    res.status(500).json({
+      error: "Could not save project review.",
+      details: error.message,
+    });
+  }
+});
 // =====================================================
 // 5. AI TEXT CATEGORISATION
 // =====================================================
