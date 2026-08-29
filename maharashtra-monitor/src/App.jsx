@@ -255,12 +255,12 @@ export default function App() {
     setSelectedProject(null);
     setProjectLoading(true);
 
-    try {
-      const response = await fetch(
-        `${API}/project?workId=${encodeURIComponent(
-          workId
-        )}`
-      );
+   try {
+  const response = await fetch(
+    `${API}/api/project?workId=${encodeURIComponent(
+      workId
+    )}`
+  );
 
       const data =
         await response.json();
