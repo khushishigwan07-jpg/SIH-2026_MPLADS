@@ -85,13 +85,17 @@ export default function App() {
       setLoading(true);
       setMessage("");
 
-      const [
-        summaryResponse,
-        projectsResponse,
-      ] = await Promise.all([
-        fetch(`${API_URL}/api/dashboard-summary`),
-        fetch(`${API}/projects`),
-      ]);
+    const [
+  summaryResponse,
+  projectsResponse,
+] = await Promise.all([
+  fetch(
+    "https://maharashtra-monitor-api.onrender.com/api/dashboard-summary"
+  ),
+  fetch(
+    "https://maharashtra-monitor-api.onrender.com/api/projects"
+  ),
+]);
 
       const summaryData =
         await summaryResponse.json();
