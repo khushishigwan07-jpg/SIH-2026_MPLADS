@@ -89,7 +89,7 @@ export default function App() {
         summaryResponse,
         projectsResponse,
       ] = await Promise.all([
-        fetch(`${API}/dashboard-summary`),
+        fetch(`${API_URL}/api/dashboard-summary`),
         fetch(`${API}/projects`),
       ]);
 
