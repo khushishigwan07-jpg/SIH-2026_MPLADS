@@ -5,7 +5,7 @@ import AddProjectForm from "./components/AddProjectForm";
 import RoleGateway from "./pages/RoleGateway";
 import CitizenPortal from "./pages/CitizenPortal";
 
-const API = "http://localhost:5000/api";
+const API = "https://maharashtra-monitor-api.onrender.com";
 
 function formatDate(value) {
   if (!value) return "Not recorded";

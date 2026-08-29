@@ -23,3 +23,5 @@ Thumbs.db
 .vscode/
 # Python virtual environment
 .venv/
+# Local database backup
+*.dump

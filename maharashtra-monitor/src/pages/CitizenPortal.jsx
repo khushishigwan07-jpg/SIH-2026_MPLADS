@@ -4,7 +4,7 @@ import {
   useState,
 } from "react";
 
-const API = "http://localhost:5000/api";
+const API = "https://maharashtra-monitor-api.onrender.com";
 
 export default function CitizenPortal({ onBack }) {
   const [projects, setProjects] = useState([]);
