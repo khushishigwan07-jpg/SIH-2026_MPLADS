@@ -325,45 +325,45 @@ export default function App() {
       setMessage("");
 
       const response = await fetch(
-        `${API}/api/project/review`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            workId:
-              selectedProject.work_id,
+  "https://maharashtra-monitor-api.onrender.com/api/project/review",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      workId: selectedProject.work_id,
+      verificationStatus: reviewStatus,
+      officerNote: officerNote || "",
+    }),
+  }
+);
 
-            verificationStatus:
-              reviewStatus,
+const data = await response.json();
 
-            officerNote,
-          }),
-        }
-      );
+if (!response.ok) {
+  throw new Error(
+    data.details ||
+      data.error ||
+      "Could not save project review."
+  );
+}
 
-      const data =
-        await response.json();
+console.log("Review saved:", data);
 
-      if (!response.ok) {
-        throw new Error(
-          data.error ||
-            "Could not save review."
-        );
-      }
+setMessage(
+  data.message ||
+    "Project review saved successfully."
+);
 
-      // Update currently opened project
-      setSelectedProject(
-        (currentProject) => ({
-          ...currentProject,
-          verification_status:
-            reviewStatus,
-          officer_note:
-            officerNote,
-        })
-      );
-
+// Update currently opened project
+setSelectedProject(
+  (currentProject) => ({
+    ...currentProject,
+    verification_status: reviewStatus,
+    officer_note: officerNote || "",
+  })
+);
       // Update project in officer table
       setProjects(
         (currentProjects) =>
