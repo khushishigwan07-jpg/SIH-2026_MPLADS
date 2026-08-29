@@ -33,7 +33,7 @@ export default function CitizenPortal({ onBack }) {
         setMessage("");
 
         const response = await fetch(
-          `${API}/api//citizen/projects`
+          `${API}/api/citizen/projects`
         );
 
         const data =
