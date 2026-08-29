@@ -325,7 +325,7 @@ export default function App() {
       setMessage("");
 
       const response = await fetch(
-        `${API}/project/review`,
+        `${API}/api/project/review`,
         {
           method: "POST",
           headers: {
