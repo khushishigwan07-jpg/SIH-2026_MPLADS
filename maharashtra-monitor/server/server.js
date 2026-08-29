@@ -337,45 +337,25 @@ app.post("/api/project/review", async (req, res) => {
     }
 
     const result = await pool.query(
-      `
-        INSERT INTO project_reviews (
-          work_id,
-          verification_status,
-          officer_note
-        )
-        VALUES ($1, $2, $3)
-        RETURNING *;
-      `,
-      [
-        workId,
-        verificationStatus,
-        officerNote || null,
-      ]
-    );
-
-    console.log(
-      "Review saved successfully:",
-      result.rows[0]
-    );
-
-    res.json({
-      message:
-        "Project review saved successfully.",
-      review: result.rows[0],
-    });
-  } catch (error) {
-    console.error(
-      "PROJECT REVIEW DATABASE ERROR:",
-      error
-    );
-
-    res.status(500).json({
-      error:
-        "Could not save project review.",
-      details: error.message,
-    });
-  }
-});
+  `
+    INSERT INTO project_reviews (
+      work_id,
+      verification_status,
+      officer_note
+    )
+    VALUES ($1, $2, $3)
+    ON CONFLICT (work_id)
+    DO UPDATE SET
+      verification_status = EXCLUDED.verification_status,
+      officer_note = EXCLUDED.officer_note
+    RETURNING *;
+  `,
+  [
+    workId,
+    verificationStatus,
+    officerNote || null,
+  ]
+);
 // =====================================================
 // 5. AI TEXT CATEGORISATION
 // =====================================================
